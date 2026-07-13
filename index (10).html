@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guia Bom Jesus - Informe Digital | Corrigido Zap</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#fafaf9;color:#1c1917;line-height:1.5}
+header{background:#b91c1c;color:white;padding:22px 16px;text-align:center;position:sticky;top:0;z-index:10;box-shadow:0 2px 12px rgba(0,0,0,.15)}
+header h1{font-size:20px;font-weight:900;letter-spacing:.02em;line-height:1.2}
+header p{font-size:13px;opacity:.92;margin-top:6px;font-weight:500}
+.toolbar{max-width:1120px;margin:18px auto 0;padding:0 16px;display:flex;flex-direction:column;gap:12px}
+.search-wrap{position:relative}
+.search-wrap input{width:100%;padding:14px 16px 14px 42px;border:1px solid #e7e5e4;border-radius:12px;font-size:15px;background:white;outline:none}
+.search-wrap input:focus{border-color:#b91c1c;box-shadow:0 0 0 3px rgba(185,28,28,.12)}
+.search-wrap span{position:absolute;left:14px;top:50%;transform:translateY(-50%);opacity:.45}
+.filters{display:flex;gap:8px;overflow:auto;padding-bottom:6px;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.chip{white-space:nowrap;padding:8px 14px;border-radius:999px;border:1px solid #e7e5e4;background:white;font-size:13px;font-weight:700;cursor:pointer;color:#44403c}
+.chip.active{background:#b91c1c;color:white;border-color:#b91c1c}
+.count{max-width:1120px;margin:8px auto 0;padding:0 16px;font-size:13px;color:#78716c}
+.grid{max-width:1120px;margin:16px auto 40px;padding:0 16px;display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:640px){.grid{grid-template-columns:1fr 1fr} header h1{font-size:22px}}
+@media(min-width:980px){.grid{grid-template-columns:1fr 1fr 1fr}}
+.card{background:white;border:1px solid #f0ecea;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;cursor:pointer;transition:.2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.08)}
+.badge{font-size:11px;font-weight:800;text-transform:uppercase;padding:4px 8px;border-radius:999px;width:fit-content}
+.badge.Alimentação{background:#fef3c7;color:#92400e}
+.badge.Saúde{background:#dcfce7;color:#166534}
+.badge.Serviços{background:#dbeafe;color:#1e40af}
+.badge.Pet{background:#fae8ff;color:#6b21a8}
+.badge.Casa{background:#ffedd5;color:#9a3412}
+.badge.Beleza{background:#fce7f3;color:#9d174d}
+.card h3{font-size:16px;font-weight:800;line-height:1.25}
+.card .desc{font-size:13.5px;color:#57534e;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:38px}
+.meta{font-size:12.8px;color:#78716c;display:flex;flex-direction:column;gap:4px}
+.actions{display:flex;gap:8px;margin-top:auto;padding-top:8px}
+.btn{flex:1;display:flex;align-items:center;justify-content:center;padding:10px;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;border:1px solid transparent}
+.btn-call{background:#f5f5f4;color:#1c1917;border-color:#e7e5e4}
+.btn-zap{background:#16a34a;color:white}
+footer{background:#1c1917;color:#a8a29e;text-align:center;padding:20px;font-size:13px;margin-top:20px}
+footer b{color:#e7e5e4}
+.empty{text-align:center;padding:40px 16px;color:#78716c;max-width:1120px;margin:0 auto}
+</style>
+</head>
+<body>
+<header><h1>OS MELHORES COMERCIOS • JANEIRO 2026</h1><p>Bom Jesus dos Perdoes e Regiao - Clique para falar com o anunciante</p></header>
+<div class="toolbar"><label class="search-wrap"><span>⌕</span><input id="search" type="search" placeholder="Buscar pizza, gas, veterinaria, freio..."></label><div id="filters" class="filters"></div></div>
+<div id="count" class="count"></div>
+<main id="grid" class="grid"></main>
+<footer><b>Guia Bom Jesus - CORRIGIDO</b><br>Agora o botao Zap abre o WhatsApp DO ANUNCIANTE, nao o seu. Compativel com WhatsApp normal e Business.</footer>
+<script>
+
+const negocios = [
+  {"id":1,"nome":"Régis Pizzas Disk","cat":"Alimentação","tel":"11961829760","tel2":"11974198637","end":"R. Belo Horizonte, 224","desc":"Pizza Grande R$50, 2 por R$95, 3 por R$145. Pizzas com azeitona. Promo pizza grátis na 2ª"},
+  {"id":2,"nome":"Lima's Hot Dog & Churrasco Grego","cat":"Alimentação","tel":"11973069977","end":"R. Guilherme Giulio S. 25 B","desc":"Hot Dog normal ou prensado, churros, churrasco grego"},
+  {"id":3,"nome":"Studio Mel - Estética","cat":"Beleza","tel":"11965773698","end":"R. Luiz F. Camargo, 101","desc":"Botox R$100, Pé e Mão R$50, Combos da semana, limpeza de pele"},
+  {"id":4,"nome":"Moto Táxi Curisco - Condutor Bueno","cat":"Serviços","tel":"11953211131","tel2":"1195005762","end":"R. Joaquim R. Santos, 466","desc":"Viagem com segurança e conforto, 07h às 18h"},
+  {"id":5,"nome":"Aticell Celular","cat":"Serviços","tel":"11910580920","end":"Av. Santos Dumont, 142","desc":"Assistência técnica, acessórios Motorola, Samsung, Apple"},
+  {"id":6,"nome":"Agrogil Agropecuária","cat":"Pet","tel":"1140125454","end":"Av. Santos Dumont","desc":"Cloro HTH 10x1kg R$289, Ração GranPlus 15kg R$139,90, Dog Special"},
+  {"id":7,"nome":"Planos de Saúde e Odontológico","cat":"Saúde","tel":"1140127581","end":"R. de Camargo, 148","desc":"Amil, Unimed, SulAmérica, Bradesco, Qualicorp. (11) 97234-7847 Jaci"},
+  {"id":8,"nome":"Vet Sangue - Veterinária","cat":"Pet","tel":"11973663311","end":"R. João Franco de Camargo, 158 - Bom Jesus","desc":"Consultas, vacinas, cirurgias, exames laboratoriais, ultrassom, hospedagem"},
+  {"id":9,"nome":"Sal & Pimenta - Almoço e Marmitex","cat":"Alimentação","tel":"11974572056","end":"Av. Santos Dumont, 130","desc":"Antigo Restaurante do Jorge, 2ª a Sábado até 15h"},
+  {"id":10,"nome":"Varejão Pioneiro","cat":"Alimentação","tel":"11982021854","end":"Av. Santos Dumont, 197","desc":"Frutas, verduras, legumes - Varejão"},
+  {"id":11,"nome":"Fernando Vieira - Corretor Caixa","cat":"Casa","tel":"11998976224","end":"Creci 83.607-F","desc":"Casa própria, aquisição terreno + construção, SBPE. Aqui ficou mais fácil realizar seu sonho"},
+  {"id":12,"nome":"Iviera Imóveis - Aluga e Vende","cat":"Casa","tel":"11998976224","end":"R. João Franco de Camargo, 200","desc":"Especialista em avaliações, www.ivieiraimoveis.com.br"},
+  {"id":13,"nome":"Empório Central dos Ovos","cat":"Alimentação","tel":"11963556376","end":"R. Santos 673","desc":"Ovos novos direto - 10 dúzias com preço especial"},
+  {"id":14,"nome":"Avícola Angela","cat":"Alimentação","tel":"11991375031","end":"Av. Santos 673","desc":"Frango assado e excelentes produtos, R$36,00"},
+  {"id":15,"nome":"Grid Freio, Pneus e Suspensão","cat":"Serviços","tel":"11997304623","end":"R. José Caetano de Lima, 80","desc":"Alinhamento, balanceamento, troca de óleo, freio"},
+  {"id":16,"nome":"Oliverty Corretora - Plantão de Vendas","cat":"Saúde","tel":"11974684601","end":"Atibaia e Região","desc":"SulAmérica, Amil, Porto Seguro, Bradesco"},
+  {"id":17,"nome":"Madame Suel - Estética e Cabeleireira","cat":"Beleza","tel":"11978598625","end":"Av. São João, 735","desc":"Lipo sem corte, drenagem linfática, micropigmentação, manicure"},
+  {"id":18,"nome":"Império do Pão - Padaria","cat":"Alimentação","tel":"11994435314","end":"Av. São João, 735 Galpão 3, V. Operária","desc":"Bebidas, gelo, carvão, pão - Sua nova padaria"},
+  {"id":19,"nome":"Gás e Água Bela Vista","cat":"Serviços","tel":"11996604702","tel2":"11997502054","end":"Rua João Franco de Camargo, 905","desc":"Entrega rápida de gás e água"},
+  {"id":20,"nome":"Loja de Plantas - Arranjos e Buquês","cat":"Casa","tel":"11940676533","end":"Av. São João, 371","desc":"Coroas de flores, ideal para quem você ama. Ednalva 99968-3739"}
+];
+
+const categorias = ["Todos","Alimentação","Saúde","Serviços","Pet","Casa","Beleza"];
+let filtroCat = "Todos";
+let busca = "";
+
+const grid = document.getElementById('grid');
+const countEl = document.getElementById('count');
+const searchInput = document.getElementById('search') || document.getElementById('busca');
+const filtersEl = document.getElementById('filters') || document.getElementById('chips');
+
+function limparTel(t){ return (t||'').replace(/\D/g,''); }
+function formatTel(t){
+  const n = limparTel(t);
+  if(n.length===11) return `(${n.slice(0,2)}) ${n.slice(2,7)}-${n.slice(7)}`;
+  if(n.length===10) return `(${n.slice(0,2)}) ${n.slice(2,6)}-${n.slice(6)}`;
+  return t;
+}
+// CORREÇÃO: usar api.whatsapp.com que funciona nos dois apps
+function zapLink(t){
+  const num = limparTel(t);
+  const phone = num.startsWith('55') ? num : '55'+num;
+  const msg = encodeURIComponent('Olá! Vi seu anúncio no Informe Digital Janeiro 2026 e gostaria de mais informações.');
+  return `https://api.whatsapp.com/send?phone=${phone}&text=${msg}`;
+}
+
+function renderFiltros(){
+  if(!filtersEl) return;
+  filtersEl.innerHTML = categorias.map(c => `<button class="chip ${filtroCat===c?'active':''}" onclick="setCat('${c}')">${c}</button>`).join('');
+}
+
+function setCat(c){ filtroCat=c; renderFiltros(); render(); }
+function setBusca(v){ busca=v.toLowerCase(); render(); }
+
+function filtrados(){
+  return negocios.filter(n=>{
+    const okCat = filtroCat==="Todos" || n.cat===filtroCat;
+    const txt = `${n.nome} ${n.desc} ${n.end||''}`.toLowerCase();
+    const okBusca = !busca || txt.includes(busca);
+    return okCat && okBusca;
+  });
+}
+
+function render(){
+  const lista = filtrados();
+  if(countEl) countEl.innerHTML = `Mostrando <b>${lista.length}</b> ${lista.length===1?'comércio':'comércios'} ${filtroCat!=='Todos'?`em ${filtroCat}`:''} ${busca?`para "${busca}"`:""}`;
+  if(lista.length===0){ grid.innerHTML = `<div class="empty">Nenhum resultado.<br>Tente outra palavra.</div>`; return; }
+  grid.innerHTML = lista.map(n=>`
+    <article class="card" onclick="window.open(zapLink('${n.tel}'),'_blank')">
+      <span class="badge ${n.cat}">${n.cat}</span>
+      <h3>${n.nome}</h3>
+      <p class="desc">${n.desc}</p>
+      <div class="meta">
+        ${n.end?`<div>📍 ${n.end}</div>`:''}
+        <div>📞 ${formatTel(n.tel)}${n.tel2?' • '+formatTel(n.tel2):''}</div>
+      </div>
+      <div class="actions">
+        <a class="btn btn-call" href="tel:${limparTel(n.tel)}" onclick="event.stopPropagation()">Ligar</a>
+        <a class="btn btn-zap" href="${zapLink(n.tel)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Zap</a>
+      </div>
+    </article>
+  `).join('');
+}
+
+if(searchInput) searchInput.addEventListener('input', e=> setBusca(e.target.value));
+renderFiltros(); render();
+window.setCat=setCat;
+
+</script>
+</body>
+</html>
