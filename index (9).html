@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guia Bom Jesus - Informe Digital | Janeiro 2026</title>
+<meta name="description" content="Os melhores comercios de Bom Jesus dos Perdoes - Edicao Janeiro 2026 - Versao digital clicavel">
+<style>
+:root{--red:#b91c1c;--bg:#fafaf9;--card:#fff;--text:#1c1917;--muted:#78716c;--border:#e7e5e4}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+header{background:var(--red);color:#fff;padding:28px 16px 22px;text-align:center;position:sticky;top:0;z-index:10;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+header h1{margin:0;font-size:clamp(18px,4vw,26px);font-weight:900;text-transform:uppercase}
+header p{margin:6px 0 0;opacity:.9;font-size:14px}
+.toolbar{max-width:1120px;margin:0 auto;padding:14px 16px 0;display:grid;gap:10px;background:var(--bg);position:sticky;top:88px;z-index:9}
+@media(max-width:600px){.toolbar{top:108px}}
+.search-wrap{position:relative}.search-wrap input{width:100%;padding:14px 16px 14px 42px;border:1px solid var(--border);border-radius:12px;font-size:15px;background:#fff;outline:none}
+.search-wrap input:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(185,28,28,.12)}
+.search-wrap .icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);opacity:.45}
+.filters{display:flex;gap:8px;overflow:auto;padding-bottom:6px}.chip{white-space:nowrap;padding:8px 14px;border-radius:999px;border:1px solid var(--border);background:#fff;font-size:13.5px;font-weight:700;cursor:pointer;color:#44403c}
+.chip.active{background:var(--red);color:#fff;border-color:var(--red)}
+.count{max-width:1120px;margin:8px auto 0;padding:0 16px;font-size:13px;color:var(--muted);width:100%}
+.grid{max-width:1120px;margin:14px auto 40px;padding:0 16px;display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:640px){.grid{grid-template-columns:repeat(2,1fr)}}@media(min-width:980px){.grid{grid-template-columns:repeat(3,1fr)}}
+.card{background:var(--card);border:1px solid #f0ecea;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;transition:.2s;cursor:pointer}
+.card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.08)}
+.badge{font-size:11px;font-weight:800;text-transform:uppercase;padding:4px 8px;border-radius:999px;width:fit-content}
+.badge.Alimentação{background:#fef3c7;color:#92400e}.badge.Saúde{background:#dcfce7;color:#166534}.badge.Serviços{background:#dbeafe;color:#1e40af}.badge.Pet{background:#fae8ff;color:#6b21a8}.badge.Casa{background:#ffedd5;color:#9a3412}.badge.Beleza{background:#fce7f3;color:#9d174d}
+.card h3{margin:2px 0 0;font-size:16px;font-weight:800;line-height:1.25}
+.desc{font-size:13.5px;color:#57534e;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:39px}
+.meta{font-size:12.8px;color:var(--muted);display:grid;gap:4px}.actions{display:flex;gap:8px;margin-top:auto;padding-top:8px}
+.btn{flex:1;text-align:center;padding:10px;border-radius:10px;font-size:13.2px;font-weight:700;text-decoration:none;border:1px solid transparent}
+.btn-call{background:#f5f5f4;color:var(--text);border-color:var(--border)}.btn-zap{background:#16a34a;color:#fff}
+footer{background:#1c1917;color:#a8a29e;text-align:center;padding:22px 16px;font-size:13px;margin-top:30px}footer b{color:#e7e5e4}
+.empty{text-align:center;padding:40px 16px;color:var(--muted);grid-column:1/-1}
+</style>
+</head>
+<body>
+<header>
+  <h1>OS MELHORES COMERÇIOS • JANEIRO 2026</h1>
+  <p>Bom Jesus dos Perdoes e Regiao - Informe Digital Clicavel</p>
+</header>
+<div class="toolbar">
+  <label class="search-wrap"><span class="icon">⌕</span><input id="busca" type="search" placeholder="Buscar pizza, gas, veterinaria, freio..."></label>
+  <div class="filters" id="filtros"></div>
+</div>
+<div class="count" id="contador"></div>
+<main class="grid" id="grid"></main>
+<footer><b>Guia Bom Jesus - Informe Digital</b> • Janeiro 2026<br>Toque no card para abrir o WhatsApp • Pronto para GitHub Pages</footer>
+<script>
+const negocios = [
+{nome:"Régis Pizzas Disk",cat:"Alimentação",tel:"11961829760",tel2:"11974198637",end:"R. Belo Horizonte, 224",desc:"Promocao: 1 Pizza R$50, 2 por R$95, 3 por R$145. Pizza Grande!"},
+{nome:"Lima's Hot Dog & Churrasco Grego",cat:"Alimentação",tel:"11973069977",end:"R. Guilherme Giulio S. 25 B",desc:"Hot Dog normal ou prensado, churrasco grego."},
+{nome:"Studio Mel - Beleza",cat:"Beleza",tel:"11965773698",end:"R. Luiz F. Camargo, 101",desc:"Botox R$100, Pe e Mao R$50, Combos da semana."},
+{nome:"Moto Taxi Curisco - Bueno",cat:"Serviços",tel:"11953211131",tel2:"11950057627",end:"R. Joaquim R. Santos, 466",desc:"Viagem com seguranca, condutor Bueno. 07h as 18h."},
+{nome:"Aticell Celular",cat:"Serviços",tel:"11910580920",end:"Av. Santos Dumont, 142",desc:"Assistencia tecnica Apple, Motorola, Samsung."},
+{nome:"Agrogil Agro & Pet",cat:"Pet",tel:"1140125454",end:"Av. Santos Dumont",desc:"Cloro HTH 10kg R$289, Racao GranPlus 15kg R$139."},
+{nome:"Planos de Saude e Odonto",cat:"Saúde",tel:"1140127581",end:"R. de Camargo, 148",desc:"Amil, Unimed, SulAmerica, Bradesco, Climed. (11) 97234-7847"},
+{nome:"Agrogil Vet - Clinica e Hotel",cat:"Pet",tel:"11973663311",end:"Animal Clinic",desc:"Veterinaria, hotel, consultas, vacinas. 98513-5946 / 4012-5454"},
+{nome:"Vet Sangue Laboratorio",cat:"Pet",tel:"11973663311",end:"R. Joao Franco de Camargo, 158",desc:"Exames, vacinas, cirurgias, ultrassom, internacao."},
+{nome:"Sal & Pimenta - Almoco e Marmitex",cat:"Alimentação",tel:"11974572056",end:"Av. Santos Dumont, 130",desc:"Antigo Restaurante do Jorge. 2a a Sab ate 15h."},
+{nome:"Varejao Pioneiro",cat:"Alimentação",tel:"11982021854",end:"Av. Santos Dumont, 197",desc:"Frutas, verduras, legumes fresquinhos."},
+{nome:"Fernando Vieira - Corretor Caixa",cat:"Casa",tel:"11998976224",end:"CRECI 83.607-F",desc:"Casa Propria? Terreno + construcao. Realize seu sonho."},
+{nome:"Ivieira Imoveis",cat:"Casa",tel:"11998976224",end:"R. Joao Franco de Camargo, 200",desc:"Aluga-se Vende-se. Especialista em avaliacoes."},
+{nome:"Emporio Central dos Ovos",cat:"Alimentação",tel:"11963556376",end:"R. Santos, 673",desc:"Ovos novos, 10 duzias com preco especial."},
+{nome:"Avicola Angela",cat:"Alimentação",tel:"11991375031",end:"Av. Santos, 673",desc:"Frango assado e excelentes produtos."},
+{nome:"Grid - Freio, Pneus e Suspensao",cat:"Serviços",tel:"11997304623",end:"R. Jose Caetano de Lima, 80",desc:"Alinhamento, balanceamento, troca de oleo."},
+{nome:"Oliverty Corretora",cat:"Saúde",tel:"11974684601",end:"Atibaia e Regiao",desc:"Plantao de vendas planos de saude. Amil, SulAmerica, Porto."},
+{nome:"Madame Suel - Cabeleireira",cat:"Beleza",tel:"11978598625",end:"Av. Sao Joao, 735",desc:"Manicure, lipo, drenagem, micropigmentacao."},
+{nome:"Imperio do Pao - Padaria",cat:"Alimentação",tel:"11994435314",end:"Av. Sao Joao, 735 Galpao 3",desc:"Bebidas, gelo, carvao. Sua nova padaria!"},
+{nome:"Gas e Agua Bela Vista",cat:"Serviços",tel:"11996604702",tel2:"11997502054",end:"R. Joao Franco de Camargo, 905",desc:"Entrega rapida de gas e agua. 96958-4211"},
+{nome:"Morcegao Lanches 7",cat:"Alimentação",tel:"1140127720",tel2:"11997350566",end:"Av. Santos Dumont, 135",desc:"Lanches e porcoes, todos os dias."},
+{nome:"Loja de Plantas",cat:"Casa",tel:"11940676533",tel2:"11999683739",end:"Av. Sao Joao, 371",desc:"Arranjos, buques, coroas de flores. Ednalva."}
+];
+const cats=["Todos","Alimentação","Saúde","Serviços","Pet","Casa","Beleza"];
+let catAtiva="Todos", busca="";
+const grid=document.getElementById('grid'), filtros=document.getElementById('filtros'), contador=document.getElementById('contador'), inputBusca=document.getElementById('busca');
+function waLink(t){return `https://wa.me/55${t.replace(/\D/g,'')}`;}
+function formata(t){const d=t.replace(/\D/g,'');return d.length===11?`(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`:t;}
+function renderFiltros(){filtros.innerHTML=cats.map(c=>`<button class="chip ${c===catAtiva?'active':''}" data-cat="${c}">${c}</button>`).join('');filtros.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{catAtiva=b.dataset.cat;render();});}
+function render(){
+  let lista=negocios.filter(n=>{
+    const okCat=catAtiva==="Todos"||n.cat===catAtiva;
+    const q=busca.toLowerCase();
+    const okBusca=!q||n.nome.toLowerCase().includes(q)||n.desc.toLowerCase().includes(q)||n.end.toLowerCase().includes(q);
+    return okCat&&okBusca;
+  });
+  contador.innerHTML=`Mostrando <b>${lista.length}</b> ${lista.length===1?'comercio':'comercios'} ${catAtiva!=='Todos'?`em <b>${catAtiva}</b>`:''} ${busca?`para "${busca}"`:''}`;
+  if(!lista.length){grid.innerHTML=`<div class="empty">Nenhum resultado para <b>${busca||catAtiva}</b></div>`;return;}
+  grid.innerHTML=lista.map(n=>`
+  <article class="card" onclick="window.open('${waLink(n.tel)}','_blank')">
+    <span class="badge ${n.cat}">${n.cat}</span>
+    <h3>${n.nome}</h3>
+    <p class="desc">${n.desc}</p>
+    <div class="meta">
+      ${n.end?`<div>📍 ${n.end}</div>`:''}
+      <div>📞 ${formata(n.tel)}${n.tel2?' • '+formata(n.tel2):''}</div>
+    </div>
+    <div class="actions">
+      <a class="btn btn-call" href="tel:${n.tel}" onclick="event.stopPropagation()">Ligar</a>
+      <a class="btn btn-zap" href="${waLink(n.tel)}" target="_blank" onclick="event.stopPropagation()">Zap</a>
+    </div>
+  </article>`).join('');
+  renderFiltros();
+}
+inputBusca.oninput=e=>{busca=e.target.value;render();}
+renderFiltros();render();
+</script>
+</body>
+</html>
